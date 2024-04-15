@@ -6,8 +6,11 @@
 //
 
 import SwiftUI
-
 @main
+
+
+
+
 struct AtelierIOS1App: App {
     var body: some Scene {
         WindowGroup {
