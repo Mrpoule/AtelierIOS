@@ -44,14 +44,14 @@ struct ContentView: View {
     
     
     
-    
-    
     var body: some View {
-        VStack {
+        ZStack{
+            Color.blue.edgesIgnoringSafeArea(.all)
+            VStack {
             Image(systemName: "globe")
                 .imageScale(.large)
-                .foregroundColor(.accentColor)
             Text("\(timeCurrent)")
+            }
         }
         .padding()
         .onAppear{fecthApi()}
@@ -64,7 +64,6 @@ struct ContentView: View {
             
             let utcOffsetSeconds = response.utcOffsetSeconds
             
-            let tb = DateFormatter()
             
             let current = response.current!
             let daily = response.daily!
