@@ -48,8 +48,23 @@ struct ContentView: View {
         ZStack{
             Color.blue.ignoresSafeArea()
             VStack {
+                Text("Saint-Georges de Beauce")
                 Text("\(timeCurrent.formatted(date: Date.FormatStyle.DateStyle.abbreviated, time: Date.FormatStyle.TimeStyle.omitted))")
-                Image(weatherCodeCalculateImage(weatherCode : weather_codeCurrent))
+                Image(weatherCodeCalculateImage(weatherCode : weather_codeCurrent)).resizable().frame(width: 200, height: 200)
+                Text("\(Int(temperature2mCurrent))C°")
+                Text("A venir")
+                HStack
+                {
+                    ForEach(0..<timeDaily.count,id: \.self) {index in
+                        VStack{
+                            Image(weatherCodeCalculateImage(weatherCode: weather_codeDaily[index])).resizable().frame(width: 100, height: 100)
+                            Text("\(timeDaily[index].formatted(date: Date.FormatStyle.DateStyle.abbreviated, time: Date.FormatStyle.TimeStyle.omitted))")
+                                Text("Max: \(Int(temperture2mMinDaily[index]))C°")
+                                Text("Min: \(Int(temperature2mMaxDaily[index]))C°")
+                            
+                        }
+                    }
+                }
             }
         }
         .padding()
@@ -86,6 +101,7 @@ struct ContentView: View {
             weather_codeCurrent = data.current.weather_code
             
             
+            
             for (i,date) in data.daily.time.enumerated()
             {
                 timeDaily.append(data.daily.time[i])
@@ -114,6 +130,24 @@ func weatherCodeCalculateImage (weatherCode: Float)-> String
     default:
         return "defaultImage"
     }
+}
+struct dailyView: View
+{
+    @State private var time: String
+    @State private var imageName: String
+    @State private var TempMax: String
+    @State private var TempMin: String
+    var body: some View
+    {
+        VStack
+        {
+            Image(imageName)
+            Text(time)
+            Text(TempMax)
+            Text(TempMin)
+        }
+    }
+
 }
 
 
