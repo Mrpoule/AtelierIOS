@@ -46,11 +46,10 @@ struct ContentView: View {
     
     var body: some View {
         ZStack{
-            Color.blue.edgesIgnoringSafeArea(.all)
+            Color.blue.ignoresSafeArea()
             VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-            Text("\(timeCurrent)")
+                Text("\(timeCurrent.formatted(date: Date.FormatStyle.DateStyle.abbreviated, time: Date.FormatStyle.TimeStyle.omitted))")
+                Image(weatherCodeCalculateImage(weatherCode : weather_codeCurrent))
             }
         }
         .padding()
@@ -94,11 +93,27 @@ struct ContentView: View {
                 temperature2mMaxDaily.append(data.daily.temperature_2m_max[i])
                 temperture2mMinDaily.append(data.daily.temperature_2m_min[i])
             }
+    
             
             
             
         }
    }
+}
+func weatherCodeCalculateImage (weatherCode: Float)-> String
+{
+    switch weatherCode {
+    case 0..<20 :
+        return "sunny"
+    case 20..<30 :
+        return "rainy"
+    case 30..<40 :
+        return "snowy"
+    case 40..<50 :
+        return "cloudy"
+    default:
+        return "defaultImage"
+    }
 }
 
 
@@ -107,3 +122,4 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+
